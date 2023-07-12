@@ -4,37 +4,42 @@ customElements.define(
         constructor() {
             super()
                 .attachShadow({ mode: "open" })
-                .innerHTML = `<div><slot></slot></div>` +
-                `<style>:host{display:inline-block;width:100%}div{display:inline-block;white-space:nowrap}</style>`;
+                .innerHTML = `<slot></slot><style>:host{display:inline-block;width:100%;white-space:nowrap}slot{display:inline-block}</style>`;
         }
         disconnectedCallback() {
             // clean up all EventListeners
-            this.resizedisconnect(); // remove "resize" listener
-            this.fontsdisconnect(); // remove font "loadingdone" listener
+            this.r(); // remove "resize" listener
+            this.f(); // remove font "loadingdone" listener
         }
-        connectedCallback() {
-            let addListener = (
+        connectedCallback(
+            // define functions and variables as parameters to save LET declarations
+
+            // FUNCTION: addListener - return a function that removes the listener
+            addListener = (
                 root,
                 event,
                 callback,
                 _ = root.addEventListener(event, callback) // add listener, saves a return statement
-            ) => () => root.removeEventListener(event, callback);
-            let inner = this.shadowRoot.querySelector("div");
-            let animationFrame; // declare all LET in one batch
-            // FUNCTION: addListener - return a function that removes the listener
+            ) => () => root.removeEventListener(event, callback),
+
+            inner = this.shadowRoot.querySelector("slot"),
+
+            animationFrame,
+
             // FUNCTION: resizeText - resizes the text
-            let resizeText = () => {
+            resizeText = () => {
                 cancelAnimationFrame(animationFrame);
-                animationFrame = requestAnimationFrame(() =>
+                requestAnimationFrame(() =>
                     this.style.fontSize =
-                    (this.clientWidth / inner.scrollWidth)
+                    parseInt(getComputedStyle(inner).fontSize)
                     *
-                    parseInt(getComputedStyle(inner).fontSize) + "px"
+                    (this.clientWidth / inner.scrollWidth) + "px"
                 )
             }
+        ) {
             // create listeners and removeListener functions
-            this.resizedisconnect = addListener(window, "resize", resizeText);
-            this.fontsdisconnect = addListener(document.fonts, "loadingdone", resizeText);
+            this.r = addListener(window, "resize", resizeText);
+            this.f = addListener(document.fonts, "loadingdone", resizeText);
             //now resize the text on first load
             resizeText();
         }
