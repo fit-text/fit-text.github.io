@@ -16,42 +16,63 @@
       m-50 40a5 5 90 00-10 0v39l-15 29a5 5 90 109 5l15-30a5 5 90 001-2v-40z'/>
     </svg>" />
     <script src="element.js"></script>
-    <script src="fit-text.org.js"></script>
     <script src="https://file-size.github.io/element.js"></script>
     <style>
         body {
             font-family: sans-serif;
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        article {
+            background: beige
         }
 
         fit-text {
-            width: 40vw;
-            display: inline-block;
-            background: red;
+            xdisplay: inline-block;
+            xbackground: red;
+            border: 1px solid blue;
         }
+
         section {
             margin-block-start: 1em;
             border-top: 2px solid black;
+        }
+
+        svg {
+            display: inline-block;
+            width: 1.5em
         }
     </style>
 </head>
 
 <body>
-    <h1>&lt;fit-text> Web Component</h1>
-    <p>Sizes the text to its container</p>
-    <fit-text1>hello world1</fit-text1>
-    <fit-text>hello world2</fit-text>
-    <fit-text>hello world2</fit-text>
-    <section style="width:75vw">
-        <fit-text>hello world2</fit-text>
-    </section>
+    <article>
+        <h1>&lt;fit-text> Web Component <a href="https://github.com/fit-text/fit-text.github.io">
+                <svg viewBox="0 0 720 720">
+                    <!-- Github Icon -->
+                    <path fill="darkred"
+                        d="M290 616v-78c0-26 9-43 19-52-63-7-128-32-128-140a110 110 90 0129-77c-3-7-13-36 3-75 0 0 23-7 77 30a264 264 90 01140 0c54-37 77-30 77-30 16 40 6 68 3 75a110 110 90 0129 77c0 109-66 133-128 140 10 8 19 26 19 52v78c0 8 5 17 19 14A284 284 90 00640 360 282 282 90 00360 77 284 284 90 00271 630c14 2 20-6 20-14z" />
+                    <g fill="none" stroke="#000">
+                        <path
+                            d="M290 616v-78c0-26 9-43 19-52-63-7-128-32-128-140a110 110 90 0129-77c-3-7-13-36 3-75 0 0 23-7 77 30a264 264 90 01140 0c54-37 77-30 77-30 16 40 6 68 3 75a110 110 90 0129 77c0 109-66 133-128 140 10 8 19 26 19 52v78c0 8 5 17 19 14A284 284 90 00640 360 282 282 90 00360 77 284 284 90 00271 630c14 2 20-6 20-14zM163 480c26 9 36 17 48 38 12 20 26 42 80 30" />
+                    </g>
+                </svg>
+                Source on GitHub</a>
+        </h1>
+        <p>Sizes the text to its container</p>
+        <fit-text>&lt;fit-text></fit-text>
+        <fit-text>Native JavaScript Web Component</fit-text>
+        <h1><fit-text>The quick brown fox</fit-text></h1>
+        <section style="width:75vw">
+            <fit-text>hello world2</fit-text>
+        </section>
 
-    <section id="filesize">
-        <h1><code class="title">&lt;fit-text></code> minified GZIP Filesize is <i>small</i></h1>
-        <article>
+        <section id="filesize">
+            <h1><code class="title">&lt;fit-text></code> minified GZIP Filesize is <i>small</i></h1>
             <file-size gz src="https://fit-text.github.io/element.min.js"></file-size>
-        </article>
-    </section>
-
+        </section>
+    </article>
 </body>
 
 </html>

@@ -4,30 +4,30 @@ customElements.define(
         constructor() {
             super()
                 .attachShadow({ mode: "open" })
-                .innerHTML = `<div id=o><div id=i><slot></slot></div></div>` +
-                `<style>#i{display:inline-block;white-space:nowrap}</style>`;
+                .innerHTML = `<div><slot></slot></div>` +
+                `<style>:host{display:inline-block;width:100%}div{display:inline-block;white-space:nowrap}</style>`;
         }
         disconnectedCallback() {
+            // clean up all EventListeners
             this.r(); // remove "resize" listener
             this.f(); // remove font "loadingdone" listener
         }
         connectedCallback() {
-            let inner = this.shadowRoot.querySelector("#i");
-            let outer = this.shadowRoot.querySelector("#o");
-            let animationFrame; // declare all LET in one batch
-            // FUNCTION: addListener - return a function that removes the listener
             let addListener = (
                 root,
                 event,
                 callback,
                 _ = root.addEventListener(event, callback) // add listener, saves a return statement
             ) => () => root.removeEventListener(event, callback);
+            let inner = this.shadowRoot.querySelector("div");
+            let animationFrame; // declare all LET in one batch
+            // FUNCTION: addListener - return a function that removes the listener
             // FUNCTION: resizeText - resizes the text
             let resizeText = () => {
                 cancelAnimationFrame(animationFrame);
                 animationFrame = requestAnimationFrame(() =>
-                    inner.style.fontSize =
-                    (outer.clientWidth / inner.scrollWidth)
+                    this.style.fontSize =
+                    (this.clientWidth / inner.scrollWidth)
                     *
                     parseInt(getComputedStyle(inner).fontSize) + "px"
                 )
