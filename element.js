@@ -9,8 +9,8 @@ customElements.define(
         }
         disconnectedCallback() {
             // clean up all EventListeners
-            this.r(); // remove "resize" listener
-            this.f(); // remove font "loadingdone" listener
+            this.resizedisconnect(); // remove "resize" listener
+            this.fontsdisconnect(); // remove font "loadingdone" listener
         }
         connectedCallback() {
             let addListener = (
@@ -33,8 +33,8 @@ customElements.define(
                 )
             }
             // create listeners and removeListener functions
-            this.r = addListener(window, "resize", resizeText);
-            this.f = addListener(document.fonts, "loadingdone", resizeText);
+            this.resizedisconnect = addListener(window, "resize", resizeText);
+            this.fontsdisconnect = addListener(document.fonts, "loadingdone", resizeText);
             //now resize the text on first load
             resizeText();
         }
