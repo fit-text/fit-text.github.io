@@ -1,36 +1,22 @@
 customElements.define("fit-text", class extends HTMLElement {
     constructor() {
-        super().attachShadow({ mode: "open" })
-            .innerHTML = `<slot/><style>:host{display:inline-block;width:100%;white-space:nowrap}slot{display:inline-block}</style>`;
+        super().attachShadow({ mode: "open" }).innerHTML = `<slot style=display:inline-block />` +
+            `<style>:host{display:inline-block;width:100%;white-space:nowrap}</style>`
     }
-    connectedCallback(
-        // define functions and variables as parameters to save LET declarations
-        animationFrame,
+    connectedCallback(// define variables and functions as parameters to save LET declarations
         slot = this.shadowRoot.querySelector("slot"),
-        // FUNCTION: resizeText - resizes the text
-        resizeText = () => (
-            cancelAnimationFrame(animationFrame),
-            requestAnimationFrame(() =>
-                this.style.fontSize =
-                parseInt(getComputedStyle(slot).fontSize)
-                *
-                (this.clientWidth / slot.scrollWidth) + "px"
-            )
-        ),
-        // FUNCTION: addListener - return a function that removes the listener
-        addListener = (
-            eventName,
-            _ = window.addEventListener(eventName, resizeText) // add listener, saves a return statement
-        ) => () => window.removeEventListener(eventName, resizeText), // return a function that removes the listener
+        // FUNCTION resizes the text
+        resize = () => requestAnimationFrame(() => this.style.fontSize = parseInt(getComputedStyle(slot).fontSize) * (this.clientWidth / slot.scrollWidth) + "px"),
+        // FUNCTION add listener; return removeEventListener function
+        event = (name, _ = addEventListener(name, resize)) => () => removeEventListener(name, resize)
     ) {
-        // create listeners and removeListener functions
-        this.r = addListener("resize");
-        this.l = addListener("loadingdone");
-        //now resize the text on first load
-        resizeText();
+        this.shadowRoot || this
+        this.r = event("resize")
+        this.l = event("loadingdone")
+        resize() // resize the text on first load
     }
     disconnectedCallback() {
-        this.r(); // remove "resize" listener
-        this.l(); // remove font "loadingdone" listener
+        this.r() // remove "resize" listener
+        this.l() // remove font "loadingdone" listener
     }
 })
