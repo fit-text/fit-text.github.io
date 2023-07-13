@@ -7,19 +7,13 @@
     <meta name="description" content="fit text font inside container">
     <meta name="author" content="Danny Engelman">
     <meta name="keywords" content="fit, text, font, resize, javascript, web component">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'>
-     <path d='M55 5a5 5 90 015-5h40a5 5 90 010 10h-10v11a70 70 90 0135 123l8 8a5 5 90 01-7 7l-9-9
-      a70 70 90 01-37 11a70 70 90 01-37-11l-9 9a5 5 90 01-7-7l8-8a70 70 90 0135-123v-11h-10
-      a5 5 90 01-5-5z
-      m-46 49a25 25 90 1135-35a80 80 90 00-35 35z
-      m126-44c-8 0-14 3-19 9a80 80 90 0135 35a25 25 90 00-16-44z
-      m-50 40a5 5 90 00-10 0v39l-15 29a5 5 90 109 5l15-30a5 5 90 001-2v-40z'/>
-    </svg>" />
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M0 18 l12 -6 l-12 -6 M24 18 l-12 -6 l12 -6' /></svg>" />
     <script src="element.js"></script>
     <script src="https://file-size.github.io/element.js"></script>
     <style>
         body {
-            font-family: sans-serif;
+            font: 16px Arial;
             max-width: 1024px;
             margin: 0 auto;
         }
@@ -37,50 +31,42 @@
         }
 
         #fittext {
-            max-width: 50%;
             margin: 0 auto;
         }
 
+        .selected button,
+        #usepath code,
         #fittext span {
             background: green;
-            font-weight: bold;
-            xfont-size: 200%;
             color: gold;
         }
 
         #fittext fit-text {
             background: beige;
-            inset: 0;
-            box-sizing: border-box;
-            border: 1px solid transparent;
-            color: green;
-            margin: 5px;
+            color: darkgreen;
+            margin: 2px 0;
         }
 
         event {
             background: grey;
             color: white;
-            padding: 0 .5em;
+            padding: 0 .2em;
         }
 
-        #usepath code{
+        #usepath code {
             width: 97%;
             display: inline-block;
-            background: beige;
-            color:green;
             padding: 0 .5em;
-            font-size:150%;
-        }
-        section {
-            margin-block-start: 1em;
-            /* border-top: 2px solid black; */
+            font-size: 150%;
         }
 
-        svg {
-            display: inline-block;
-            width: 1.5em
+        input,
+        button {
+            cursor: pointer;
         }
     </style>
+    <link id="fontlink">
+    <style id="fontstyle"></style>
 </head>
 
 <body>
@@ -89,7 +75,7 @@
             <fit-text>
                 <component-title name="fit-text">&lt;fit-text> Web Component</component-title>
                 <a href="https://github.com/fit-text/fit-text.github.io">
-                    <svg viewBox="0 0 720 720">
+                    <svg viewBox="0 0 720 720" style="display:inline-block;width:1.5em">
                         <!-- Github Icon -->
                         <path fill="darkred"
                             d="M290 616v-78c0-26 9-43 19-52-63-7-128-32-128-140a110 110 90 0129-77c-3-7-13-36 3-75 0 0 23-7 77 30a264 264 90 01140 0c54-37 77-30 77-30 16 40 6 68 3 75a110 110 90 0129 77c0 109-66 133-128 140 10 8 19 26 19 52v78c0 8 5 17 19 14A284 284 90 00640 360 282 282 90 00360 77 284 284 90 00271 630c14 2 20-6 20-14z" />
@@ -102,28 +88,33 @@
             </fit-text>
         </section>
         <section>
-            <fit-text>Try it yourself. Resize container max-width (10-100%): <input style="width:200px" type="range"
-                    min="10" max="100" value="50" oninput="setDemoWidth(this.value)"> and/or resize your Browser
-                window</fit-text>
-        </section>
-        <section id="loadfonts">
-            Load font:
-            <load-font fontname="Roboto"></load-font>
-            <load-font fontname="Caprasimo"></load-font>
-            <load-font fontname="Pacifico"></load-font>
-            <load-font fontname="Rubik+Dirt"></load-font>
+            <fit-text>Try it yourself...
+                <br>Resize container max-width (10-100%):
+                <input style="width:200px" type="range" min="10" max="100" value="80"
+                    oninput="setDemoWidth(this.value)">
+                and/or resize your Browser window
+                <div style="margin-top: 0em">
+                    And load another font:
+                    <load-font fontname="Roboto"></load-font>
+                    <load-font fontname="Caprasimo"></load-font>
+                    <load-font fontname="Pacifico"></load-font>
+                    <load-font fontname="Rubik+Dirt"></load-font>
+                </div>
+            </fit-text>
         </section>
         <section id="fittext">
-            <fit-text>&lt;fit-text><span id="content"> ANY CONTENT </span>&lt;/fit-text></fit-text>
             <fit-text>A Native JavaScript Web Component</fit-text>
-            <fit-text>Sizing <span>&nbsp;text&nbsp;</span></fit-text>
-            <fit-text>to its container width</fit-text>
-            <fit-text>The Web Component sets the font-size attribute on the &lt;fit-text> DOM element</fit-text>
-            <fit-text>The Web Component resizes its text content on <event>resize</event> and <event>font
+            <fit-text>&lt;fit-text><span id="content"> ANY CONTENT </span>&lt;/fit-text></fit-text>
+            <fit-text>sets <code style="font-size:130%">font-size</code> attribute </fit-text>
+            <fit-text>to fill text to container width</fit-text>
+            <fit-text>The Web Component sets the font-size attribute on the &lt;fit-text> DOM element
+                <br>
+                <br>
+                The Web Component resizes its text content on <event>resize</event> and <event>font
                     loadingdone</event> events</fit-text>
         </section>
         <section id="usepath">
-            <h1>Two line minimal path to happiness:</h1>
+            <h1>Using &lt;fit-text> - Two line minimal path to happiness:</h1>
             <h1>
                 <code>&lt;script src="https://fit-text.github.io/element.js"></code>
                 <br>
@@ -136,34 +127,44 @@
         </section>
     </article>
     <script>
-        const createElement = ({ tag, attrs = [], children = [], ...props }) => {
+        function createElement({ tag, attrs = [], children = [], ...props }) {
             const element = Object.assign(document.createElement(tag), props);
             attrs.map(([attr, value]) => element.setAttribute(attr, value));
             element.append(...children);
             return element;
         };
+
         function setDemoWidth(value) {
-            fittext.style.maxWidth = value + '%';
-            window.dispatchEvent(new Event('resize'));
+            fittext.style.maxWidth = value + "%";
+            window.dispatchEvent(new Event("resize"));
         }
+        setDemoWidth(80);
+
+        function setFont(fontname) {
+            fontlink.replaceWith(
+                createElement({
+                    tag: "link",
+                    id: "fontlink",
+                    href: `https://fonts.googleapis.com/css2?family=${fontname}&display=swap`,
+                    rel: "stylesheet"
+                }));
+            fontstyle.replaceWith(
+                createElement({
+                    tag: "style",
+                    id: "fontstyle",
+                    textContent: `#fittext{font-family:"${fontname.replace("+", " ")}",sans-serif}`
+                }));
+        }
+
         customElements.define("load-font", class extends HTMLElement {
             connectedCallback() {
-                let fontname = this.getAttribute('fontname') || 'Roboto';
+                let fontname = this.getAttribute("fontname") || "Roboto";
                 this.innerHTML = `<button>${fontname}</button>`;
-                this.dispatchEvent(new Event('fontloadingdone'));
-                this.onclick = () => {
-                    document.head.append(
-                        createElement({
-                            tag: 'link',
-                            href: `https://fonts.googleapis.com/css2?family=${fontname}&display=swap`,
-                            rel: 'stylesheet'
-                        }),
-                        createElement({
-                            tag: "style",
-                            textContent: `#fittext{font-family:"${fontname.replace("+", " ")}",sans-serif}`
-                        })
-                    );
-                }
+                this.onclick = () => setFont(fontname);
+                this.parentNode.addEventListener("click", (evt) => {
+                    console.log(evt);
+                    this.classList.toggle("selected", this == evt.target.parentNode);
+                });
             }
         })
     </script>

@@ -1,6 +1,6 @@
 customElements.define("fit-text", class extends HTMLElement {
     constructor() {
-        super().attachShadow({ mode: "open" }).innerHTML = `<slot style=display:inline-block />` +
+        super().attachShadow({ mode: "open" }).innerHTML = `<slot style=display:inline-block>` +
             `<style>:host{display:inline-block;width:100%;white-space:nowrap`
     }
     connectedCallback(// define variables and functions as parameters to save LET declarations
