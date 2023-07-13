@@ -5,15 +5,14 @@ customElements.define("fit-text", class extends HTMLElement {
     }
     connectedCallback(// define variables and functions as parameters to save LET declarations
         slot = this.shadowRoot.querySelector("slot"),
-        // FUNCTION resizes the text
-        resize = () => requestAnimationFrame(() => this.style.fontSize = parseInt(getComputedStyle(slot).fontSize) * (this.clientWidth / slot.scrollWidth) + "px"),
+        // FUNCTION resizes the text to fit the <fit-text> element
+        fit = () => setTimeout(() => this.style.fontSize = parseInt(getComputedStyle(slot).fontSize) * (this.clientWidth / slot.scrollWidth) + "px"),
         // FUNCTION add listener; return removeEventListener function
-        event = (name, _ = addEventListener(name, resize)) => () => removeEventListener(name, resize)
+        event = (name, _ = addEventListener(name, fit)) => () => removeEventListener(name, fit)
     ) {
-        this.shadowRoot || this
-        this.r = event("resize")
-        this.l = event("loadingdone")
-        resize() // resize the text on first load
+        this.r = event("resize") // fit when the window resizes
+        this.l = event("loadingdone") // fit when fonts load
+        fit() // fit the text on first load
     }
     disconnectedCallback() {
         this.r() // remove "resize" listener

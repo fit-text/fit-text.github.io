@@ -15,7 +15,7 @@
       m126-44c-8 0-14 3-19 9a80 80 90 0135 35a25 25 90 00-16-44z
       m-50 40a5 5 90 00-10 0v39l-15 29a5 5 90 109 5l15-30a5 5 90 001-2v-40z'/>
     </svg>" />
-    <script src="element.js"></script>
+    <script src="element.min.js"></script>
     <script src="https://file-size.github.io/element.js"></script>
     <style>
         body {
@@ -29,10 +29,9 @@
         }
 
         fit-text {
-            /* xdisplay:  */
-            width:300px;
-            xwhite-space: break-spaces;
-            border: 1px solid blue;
+            inset: 0;
+            box-sizing: border-box;
+            border: 10px solid blue;
             color:green;
         }
 
@@ -74,7 +73,7 @@
 
         <section id="filesize">
             <h1><code class="title">&lt;fit-text></code> minified GZIP Filesize is <i>small</i></h1>
-            <file-size gz src="https://fit-text.github.io/element.min.js"></file-size>
+            <!-- <file-size gz src="https://fit-text.github.io/element.min.js"></file-size> -->
         </section>
     </article>
 </body>
