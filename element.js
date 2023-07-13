@@ -9,20 +9,10 @@ customElements.define(
         disconnectedCallback() {
             // clean up all EventListeners
             this.r(); // remove "resize" listener
-            this.f(); // remove font "loadingdone" listener
+            this.l(); // remove font "loadingdone" listener
         }
         connectedCallback(
             // define functions and variables as parameters to save LET declarations
-
-            // FUNCTION: addListener - return a function that removes the listener
-            addListener = (
-                root,
-                event,
-                callback,
-                _ = root.addEventListener(event, callback) // add listener, saves a return statement
-            ) => () => root.removeEventListener(event, callback),
-
-            inner = this.shadowRoot.querySelector("slot"),
 
             animationFrame,
 
@@ -31,15 +21,22 @@ customElements.define(
                 cancelAnimationFrame(animationFrame);
                 requestAnimationFrame(() =>
                     this.style.fontSize =
-                    parseInt(getComputedStyle(inner).fontSize)
+                    parseInt(getComputedStyle(this.shadowRoot.querySelector("slot")).fontSize)
                     *
-                    (this.clientWidth / inner.scrollWidth) + "px"
+                    (this.clientWidth / this.shadowRoot.querySelector("slot").scrollWidth) + "px"
                 )
-            }
+            },
+
+            // FUNCTION: addListener - return a function that removes the listener
+            addListener = (
+                eventName,
+                _ = window.addEventListener(eventName, resizeText) // add listener, saves a return statement
+            ) => () => window.removeEventListener(eventName, resizeText), // return a function that removes the listener
+
         ) {
             // create listeners and removeListener functions
-            this.r = addListener(window, "resize", resizeText);
-            this.f = addListener(document.fonts, "loadingdone", resizeText);
+            this.r = addListener("resize");
+            this.l = addListener("loadingdone");
             //now resize the text on first load
             resizeText();
         }
