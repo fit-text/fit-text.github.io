@@ -15,7 +15,7 @@
       m126-44c-8 0-14 3-19 9a80 80 90 0135 35a25 25 90 00-16-44z
       m-50 40a5 5 90 00-10 0v39l-15 29a5 5 90 109 5l15-30a5 5 90 001-2v-40z'/>
     </svg>" />
-    <script src="element.min.js"></script>
+    <script src="element.js"></script>
     <script src="https://file-size.github.io/element.js"></script>
     <style>
         body {
@@ -24,20 +24,56 @@
             margin: 0 auto;
         }
 
-        article {
-            background: beige
+        component-title {
+            font-size: 300%;
+            font-weight: bold;
+            color: darkgoldenrod;
+            text-shadow: 1px 1px 1px black;
         }
 
-        fit-text {
+        article {
+            background: lightgrey;
+            padding: 0 1em;
+        }
+
+        #fittext {
+            max-width: 50%;
+            margin: 0 auto;
+        }
+
+        #fittext span {
+            background: green;
+            font-weight: bold;
+            xfont-size: 200%;
+            color: gold;
+        }
+
+        #fittext fit-text {
+            background: beige;
             inset: 0;
             box-sizing: border-box;
-            border: 10px solid blue;
-            color:green;
+            border: 1px solid transparent;
+            color: green;
+            margin: 5px;
         }
 
+        event {
+            background: grey;
+            color: white;
+            padding: 0 .5em;
+        }
+
+        #usepath code{
+            width: 97%;
+            display: inline-block;
+            background: beige;
+            color:green;
+            padding: 0 .5em;
+            font-size:150%;
+        }
         section {
             margin-block-start: 1em;
-            border-top: 2px solid black;
+            /* border-top: 2px solid black; */
         }
 
         svg {
@@ -49,33 +85,88 @@
 
 <body>
     <article>
-        <h1>&lt;fit-text> Web Component <a href="https://github.com/fit-text/fit-text.github.io">
-                <svg viewBox="0 0 720 720">
-                    <!-- Github Icon -->
-                    <path fill="darkred"
-                        d="M290 616v-78c0-26 9-43 19-52-63-7-128-32-128-140a110 110 90 0129-77c-3-7-13-36 3-75 0 0 23-7 77 30a264 264 90 01140 0c54-37 77-30 77-30 16 40 6 68 3 75a110 110 90 0129 77c0 109-66 133-128 140 10 8 19 26 19 52v78c0 8 5 17 19 14A284 284 90 00640 360 282 282 90 00360 77 284 284 90 00271 630c14 2 20-6 20-14z" />
-                    <g fill="none" stroke="#000">
-                        <path
-                            d="M290 616v-78c0-26 9-43 19-52-63-7-128-32-128-140a110 110 90 0129-77c-3-7-13-36 3-75 0 0 23-7 77 30a264 264 90 01140 0c54-37 77-30 77-30 16 40 6 68 3 75a110 110 90 0129 77c0 109-66 133-128 140 10 8 19 26 19 52v78c0 8 5 17 19 14A284 284 90 00640 360 282 282 90 00360 77 284 284 90 00271 630c14 2 20-6 20-14zM163 480c26 9 36 17 48 38 12 20 26 42 80 30" />
-                    </g>
-                </svg>
-                Source on GitHub</a>
-        </h1>
-        <p>Sizes the text to its container</p>
-        <fit-text>&lt;fit-text></fit-text>
-        <fit-text>Native JavaScript Web Component</fit-text>
-        <fit-text>The quick brown fox</fit-text>
-        <fit-text>jumps over the lazy dog</fit-text>
-        <section style="width:100vw">
-            <pre>style="width:100vw"</pre>
-            <fit-text><a href="">style="width:100vw"</a></fit-text>
+        <section>
+            <fit-text>
+                <component-title name="fit-text">&lt;fit-text> Web Component</component-title>
+                <a href="https://github.com/fit-text/fit-text.github.io">
+                    <svg viewBox="0 0 720 720">
+                        <!-- Github Icon -->
+                        <path fill="darkred"
+                            d="M290 616v-78c0-26 9-43 19-52-63-7-128-32-128-140a110 110 90 0129-77c-3-7-13-36 3-75 0 0 23-7 77 30a264 264 90 01140 0c54-37 77-30 77-30 16 40 6 68 3 75a110 110 90 0129 77c0 109-66 133-128 140 10 8 19 26 19 52v78c0 8 5 17 19 14A284 284 90 00640 360 282 282 90 00360 77 284 284 90 00271 630c14 2 20-6 20-14z" />
+                        <g fill="none" stroke="#000">
+                            <path
+                                d="M290 616v-78c0-26 9-43 19-52-63-7-128-32-128-140a110 110 90 0129-77c-3-7-13-36 3-75 0 0 23-7 77 30a264 264 90 01140 0c54-37 77-30 77-30 16 40 6 68 3 75a110 110 90 0129 77c0 109-66 133-128 140 10 8 19 26 19 52v78c0 8 5 17 19 14A284 284 90 00640 360 282 282 90 00360 77 284 284 90 00271 630c14 2 20-6 20-14zM163 480c26 9 36 17 48 38 12 20 26 42 80 30" />
+                        </g>
+                    </svg>
+                    Unlicensed source on GitHub</a>
+            </fit-text>
         </section>
-
+        <section>
+            <fit-text>Try it yourself. Resize container max-width (10-100%): <input style="width:200px" type="range"
+                    min="10" max="100" value="50" oninput="setDemoWidth(this.value)"> and/or resize your Browser
+                window</fit-text>
+        </section>
+        <section id="loadfonts">
+            Load font:
+            <load-font fontname="Roboto"></load-font>
+            <load-font fontname="Caprasimo"></load-font>
+            <load-font fontname="Pacifico"></load-font>
+            <load-font fontname="Rubik+Dirt"></load-font>
+        </section>
+        <section id="fittext">
+            <fit-text>&lt;fit-text><span id="content"> ANY CONTENT </span>&lt;/fit-text></fit-text>
+            <fit-text>A Native JavaScript Web Component</fit-text>
+            <fit-text>Sizing <span>&nbsp;text&nbsp;</span></fit-text>
+            <fit-text>to its container width</fit-text>
+            <fit-text>The Web Component sets the font-size attribute on the &lt;fit-text> DOM element</fit-text>
+            <fit-text>The Web Component resizes its text content on <event>resize</event> and <event>font
+                    loadingdone</event> events</fit-text>
+        </section>
+        <section id="usepath">
+            <h1>Two line minimal path to happiness:</h1>
+            <h1>
+                <code>&lt;script src="https://fit-text.github.io/element.js"></code>
+                <br>
+                <code>&lt;fit-text>Hello World!&lt;/fit-text></code>
+            </h1>
+        </section>
         <section id="filesize">
             <h1><code class="title">&lt;fit-text></code> minified GZIP Filesize is <i>small</i></h1>
             <file-size gz src="https://fit-text.github.io/element.min.js"></file-size>
         </section>
     </article>
+    <script>
+        const createElement = ({ tag, attrs = [], children = [], ...props }) => {
+            const element = Object.assign(document.createElement(tag), props);
+            attrs.map(([attr, value]) => element.setAttribute(attr, value));
+            element.append(...children);
+            return element;
+        };
+        function setDemoWidth(value) {
+            fittext.style.maxWidth = value + '%';
+            window.dispatchEvent(new Event('resize'));
+        }
+        customElements.define("load-font", class extends HTMLElement {
+            connectedCallback() {
+                let fontname = this.getAttribute('fontname') || 'Roboto';
+                this.innerHTML = `<button>${fontname}</button>`;
+                this.dispatchEvent(new Event('fontloadingdone'));
+                this.onclick = () => {
+                    document.head.append(
+                        createElement({
+                            tag: 'link',
+                            href: `https://fonts.googleapis.com/css2?family=${fontname}&display=swap`,
+                            rel: 'stylesheet'
+                        }),
+                        createElement({
+                            tag: "style",
+                            textContent: `#fittext{font-family:"${fontname.replace("+", " ")}",sans-serif}`
+                        })
+                    );
+                }
+            }
+        })
+    </script>
 </body>
 
 </html>
