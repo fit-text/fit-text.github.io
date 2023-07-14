@@ -9,7 +9,7 @@
     <meta name="keywords" content="fit, text, font, resize, javascript, web component">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M0 18 l12 -6 l-12 -6 M24 18 l-12 -6 l12 -6' /></svg>" />
-    <script src="element.js"></script>
+    <script src="element.min.js"></script>
     <script src="https://file-size.github.io/element.js"></script>
     <style>
         body {
@@ -21,38 +21,39 @@
         component-title {
             font-size: 300%;
             font-weight: bold;
-            color: darkgoldenrod;
+            color: green;
             text-shadow: 1px 1px 1px black;
         }
-
+        
         article {
             background: lightgrey;
             padding: 0 1em;
         }
-
+        
         #fittext {
             margin: 0 auto;
         }
-
+        
         .selected button,
         #usepath code,
         #fittext span {
             background: green;
             color: gold;
+            text-shadow: 1px 1px 1px black;
         }
-
+        
         #fittext fit-text {
-            background: beige;
+            /* background: beige; */
             color: darkgreen;
             margin: 2px 0;
         }
-
+        
         event {
             background: grey;
             color: white;
             padding: 0 .2em;
         }
-
+        
         #usepath code {
             width: 97%;
             display: inline-block;
@@ -64,7 +65,7 @@
         button {
             cursor: pointer;
         }
-    </style>
+        </style>
     <link id="fontlink">
     <style id="fontstyle"></style>
 </head>
@@ -78,7 +79,7 @@
                     <svg viewBox="0 0 720 720" style="display:inline-block;width:1.5em">
                         <!-- Github Icon -->
                         <path fill="darkred"
-                            d="M290 616v-78c0-26 9-43 19-52-63-7-128-32-128-140a110 110 90 0129-77c-3-7-13-36 3-75 0 0 23-7 77 30a264 264 90 01140 0c54-37 77-30 77-30 16 40 6 68 3 75a110 110 90 0129 77c0 109-66 133-128 140 10 8 19 26 19 52v78c0 8 5 17 19 14A284 284 90 00640 360 282 282 90 00360 77 284 284 90 00271 630c14 2 20-6 20-14z" />
+                        d="M290 616v-78c0-26 9-43 19-52-63-7-128-32-128-140a110 110 90 0129-77c-3-7-13-36 3-75 0 0 23-7 77 30a264 264 90 01140 0c54-37 77-30 77-30 16 40 6 68 3 75a110 110 90 0129 77c0 109-66 133-128 140 10 8 19 26 19 52v78c0 8 5 17 19 14A284 284 90 00640 360 282 282 90 00360 77 284 284 90 00271 630c14 2 20-6 20-14z" />
                         <g fill="none" stroke="#000">
                             <path
                                 d="M290 616v-78c0-26 9-43 19-52-63-7-128-32-128-140a110 110 90 0129-77c-3-7-13-36 3-75 0 0 23-7 77 30a264 264 90 01140 0c54-37 77-30 77-30 16 40 6 68 3 75a110 110 90 0129 77c0 109-66 133-128 140 10 8 19 26 19 52v78c0 8 5 17 19 14A284 284 90 00640 360 282 282 90 00360 77 284 284 90 00271 630c14 2 20-6 20-14zM163 480c26 9 36 17 48 38 12 20 26 42 80 30" />
@@ -105,12 +106,11 @@
         <section id="fittext">
             <fit-text>A Native JavaScript Web Component</fit-text>
             <fit-text>&lt;fit-text><span id="content"> ANY CONTENT </span>&lt;/fit-text></fit-text>
-            <fit-text>sets <code style="font-size:130%">font-size</code> attribute </fit-text>
+            <fit-text>sets <code style="font-size:130%">font-size</code> style </fit-text>
             <fit-text>to fill text to container width</fit-text>
-            <fit-text>The Web Component sets the font-size attribute on the &lt;fit-text> DOM element
+            <fit-text>The Web Component sets the inline style font-size on the &lt;fit-text> DOM element
                 <br>
-                <br>
-                The Web Component resizes its text content on <event>resize</event> and <event>font
+                The Web Component resizes its content on <event>resize</event> and <event>font
                     loadingdone</event> events</fit-text>
         </section>
         <section id="usepath">
