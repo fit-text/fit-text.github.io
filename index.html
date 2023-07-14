@@ -46,6 +46,7 @@
             /* background: beige; */
             color: darkgreen;
             margin: 2px 0;
+            font-stretch: condensed;
         }
         
         event {
@@ -99,13 +100,14 @@
                     <load-font fontname="Roboto"></load-font>
                     <load-font fontname="Caprasimo"></load-font>
                     <load-font fontname="Pacifico"></load-font>
-                    <load-font fontname="Rubik+Dirt"></load-font>
+                    <load-font fontname="Rubik Dirt"></load-font>
+                    <load-font fontname="Anek Malayalam"></load-font>
                 </div>
             </fit-text>
         </section>
         <section id="fittext">
             <fit-text>A Native JavaScript Web Component</fit-text>
-            <fit-text>&lt;fit-text><span id="content"> ANY CONTENT </span>&lt;/fit-text></fit-text>
+            <fit-text>&lt;fit-text><span id="content"> [your text] </span>&lt;/fit-text></fit-text>
             <fit-text>sets <code style="font-size:130%">font-size</code> style </fit-text>
             <fit-text>to fill text to container width</fit-text>
             <fit-text>The Web Component sets the inline style font-size on the &lt;fit-text> DOM element
@@ -145,14 +147,14 @@
                 createElement({
                     tag: "link",
                     id: "fontlink",
-                    href: `https://fonts.googleapis.com/css2?family=${fontname}&display=swap`,
+                    href: `https://fonts.googleapis.com/css2?family=${fontname.replace(" ", "+")}&display=swap`,
                     rel: "stylesheet"
                 }));
             fontstyle.replaceWith(
                 createElement({
                     tag: "style",
                     id: "fontstyle",
-                    textContent: `#fittext{font-family:"${fontname.replace("+", " ")}",sans-serif}`
+                    textContent: `#fittext{font-family:"${fontname}",sans-serif}`
                 }));
         }
 
