@@ -18,4 +18,4 @@ customElements.define("fit-text", class extends HTMLElement {
         this.r() // remove "resize" listener
         this.l() // remove font "loadingdone" listener
     }
-})
+});
