@@ -13,25 +13,34 @@ customElements.define("fit-text", class extends HTMLElement {
                 _ => this.style.fontSize = parseInt(getComputedStyle(slot).fontSize) * (this.clientWidth / slot.scrollWidth) + "px"
             ),
         // FUNCTION add listener; return removeEventListener function
-        event = (root, name, x = root.addEventListener(name, fit)) => x => root.removeEventListener(name, fit)
+        event = (root, name, x = root.addEventListener(name, fit)) => x => root.removeEventListener(name, fit),
+        observers = [] //array of MutationObservers
     ) {
+        fit() // fit the text on first load
+
+        // watch for any (any!) DOM changes, unless the "static" attribute is set
         if (!this.hasAttribute("static")) {
-        // Listeners outside 'this' need to be removed on disconnect! Keep a reference
+            // Listeners outside 'this' need to be removed on disconnect! Keep a reference
             this.r = event(window, "resize") // fit when the window resizes
             this.l = event(document.fonts, "loadingdone") // fit when fonts load
-            //slotchange Listener will be garbage collected!
-            event(slot, "slotchange")
 
-            // MutationObserver for all lightDOM changes
-            this.o = new MutationObserver(fit);
-            this.o.observe(this, { childList: 1, subtree: 1, characterData: 1 })
+            slot.addEventListener("slotchange", (e) => {
+                // watch new Child elements with shadowRoots, attach MutationObserver
+                [...slot.assignedElements()]
+                    .filter(x => x.shadowRoot && !x.observer)
+                    .map(x => {
+                        observers.push(x.observer = new MutationObserver(fit))
+                        x.observer.observe(x.shadowRoot, { childList: true, subtree: true, characterData: true })
+                    })
+            })
+            // MutationObserver for all <fit-text> lightDOM changes
+            observers.push(this.observer = new MutationObserver(fit))
+            this.observer.observe(this, { childList: true, subtree: true, characterData: true })
         }
-
-        fit() // fit the text on first load
     }
     disconnectedCallback() {
         this.r() // remove "resize" listener
         this.l() // remove font "loadingdone" listener
-        this.o.disconnect();
+        observers.map(x => x.disconnect()) // remove all MutationObservers
     }
 });
