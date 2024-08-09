@@ -131,7 +131,7 @@
     </article>
     <script>
         function createElement({ tag, attrs = [], children = [], ...props }) {
-            const element = Object.assign(document.createElement(tag), props);
+            let element = Object.assign(document.createElement(tag), props);
             attrs.map(([attr, value]) => element.setAttribute(attr, value));
             element.append(...children);
             return element;
